@@ -59,8 +59,8 @@ const FollowType = new GraphQLObjectType({
   }),
 });
 
-const LikeType = new GraphQLObjectType({
-  name: "Like",
+const UserStoryType = new GraphQLObjectType({
+  name: "UserStory",
   fields: () => ({
     user_id: { type: GraphQLID },
     story_id: { type: GraphQLID },
@@ -94,7 +94,7 @@ module.exports = {
   StoryType,
   UserType,
   FollowType,
-  LikeType,
+  UserStoryType,
   MultimediaType,
   StoryMultimediaType
 };
