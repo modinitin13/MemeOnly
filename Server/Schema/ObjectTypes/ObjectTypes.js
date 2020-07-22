@@ -28,12 +28,18 @@ const StoryType = new GraphQLObjectType({
     story_is_single: { type: GraphQLBoolean },
     story_author_id: { type: GraphQLID },
     story_created_at: { type: GraphQLString },
-    story_user: {
+    story_author: {
       type: UserType,
       resolve(parent, args) {
         return _.find(User, { user_id: parent.story_author_id });
       },
     },
+    story_liker:{
+      type:UserType,
+      resolve(parent,args){
+        return StoryUser.find({})
+      }
+    }
   }),
 });
 

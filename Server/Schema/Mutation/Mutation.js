@@ -23,7 +23,7 @@ const User = require("../../models/User/User");
 const Story = require("../../models/Story/Story");
 const UserStoryLike = require("../../models/UserStory/UserStoryLike");
 const UserUser = require("../../models/UserUser/UserUser");
-const { resolve } = require("path");
+
 // Mutation
 const Mutation = new GraphQLObjectType({
   name: "Mutation",

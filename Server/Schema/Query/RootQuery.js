@@ -19,9 +19,14 @@ const {
   MultimediaType,
   StoryMultimediaType,
 } = require("../ObjectTypes/ObjectTypes");
+
+// Schemas
 const User = require("../../models/User/User");
-
-
+const Story=require("../../models/Story/Story")
+const UserUser=require("../../models/UserUser/UserUser")
+const UserStoryLike=require("../../models/UserStory/UserStoryLike")
+const Multimedia=require('../../models/Multimedia/Multimedia')
+const StoryMultimedia=require('../../models/StoryMultimedia/StoryMultimedia')
 // Query
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -30,7 +35,7 @@ const RootQuery = new GraphQLObjectType({
       type: StoryType,
       args: { story_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.find(Story, { story_id: args.story_id });
+        return Story.findById(args.story_id);
       },
     },
     getUserDetails: {
@@ -44,35 +49,35 @@ const RootQuery = new GraphQLObjectType({
       type: MultimediaType,
       args: { multimedia_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.find(Multimedia, { multimedia_id: args.multimedia_id });
+        return Multimedia.findById(args.multimedia_id);
       },
     },
     getUserFollower: {
       type: new GraphQLList(FollowType),
-      args: { user_id1: { type: GraphQLID } },
+      args: { user_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.filter(UserUser, { user_id1: args.user_id1 });
+        return UserUser.find({ user_id2: args.user_id });
       },
     },
     getUserFollowing: {
       type: new GraphQLList(FollowType),
-      args: { user_id2: { type: GraphQLID } },
+      args: { user_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.filter(UserUser, { user_id2: args.user_id2 });
+        return UserUser.find({ user_id1: args.user_id });
       },
     },
     getUserLiked: {
       type: new GraphQLList(UserStoryType),
       args: { user_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.filter(UserStory, { user_id: args.user_id });
+        return UserStoryLike.find({ user_id: args.user_id });
       },
     },
     getStoryMultimedia: {
       type: new GraphQLList(StoryMultimediaType),
       args: { story_id: { type: GraphQLID } },
       resolve(parent, args) {
-        return _.filter(StoryMultimedia, { story_id: args.story_id });
+        return StoryMultimedia.find({ story_id: args.story_id });
       },
     },
   },
